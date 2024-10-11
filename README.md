@@ -13,6 +13,7 @@ Ainsi, pour tester il vous suffit d'exécuter :
 ```bash
 chmod u+x build.sh && ./build.sh
 ```
+Il vous suffit ensuite de vous rendre à l'addresse `127.0.0.1:[PORT]/panier` pour voir les paniers, et `127.0.0.1:[PORT]/{id}` pour voir les pages des fruits directement.
 
 # Debugging
 

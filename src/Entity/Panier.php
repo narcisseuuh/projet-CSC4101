@@ -21,7 +21,7 @@ class Panier
     /**
      * @var Collection<int, Fruit>
      */
-    #[ORM\OneToMany(targetEntity: Fruit::class, mappedBy: 'Panier', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Fruit::class, mappedBy: 'panier')]
     private Collection $fruits;
 
     public function __construct()
@@ -45,6 +45,9 @@ class Panier
         return $this;
     }
 
+    /**
+     * @return Collection<int, Fruit>
+     */
     public function getFruits(): Collection
     {
         return $this->fruits;
@@ -63,10 +66,10 @@ class Panier
     public function removeFruit(Fruit $fruit): static
     {
         if ($this->fruits->contains($fruit)) {
-            $this->fruits->removeElement($fruit);   
-        }
-        if ($fruit->getPanier() === $this) {
-            $fruit->setPanier(null);
+            $this->fruits->removeElement($fruit);
+            if ($fruit->getPanier() === $this) {
+                $fruit->setPanier(null);
+            }  
         }
         return $this;
     }

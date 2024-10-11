@@ -31,10 +31,6 @@ class PanierController extends AbstractController
     {
             $panierRepo = $doctrine->getRepository(Panier::class);
             $panier = $panierRepo->find($id);
-            $fruits = $panier->getFruits();
-            if ($fruits->isEmpty()) {
-                return $this->redirectToRoute('base.html.twig', []);
-            }
 
             return $this->render('panier/show.html.twig', [
                 'panier' => $panier

@@ -13,24 +13,24 @@
             </tr>
             <tr>
                 <th>Nom</th>
-                <td>{{ fruit.getName }}</td>
+                <td>{{ fruit.nom }}</td>
             </tr>
             <tr>
                 <th>Couleur</th>
-                <td>{{ fruit.getColor }}</td>
+                <td>{{ fruit.couleur }}</td>
             </tr>
             <tr>
                 <th>Quantité</th>
-                <td>{{ fruit.getQuantite }}</td>
+                <td>{{ fruit.quantite }}</td>
             </tr>
             <tr>
                 <th>Panier</th>
-                <td>{{ fruit.panier.getName }}</td>
+                <td>{{ fruit.panier.getNom }}</td>
             </tr>
 
 
     </tbody>
 </table>
 
-<a href="{{ path('app_panier', { 'id': fruit.panier.id }) }}">retour au panier {{ fruit.panier.id }}</a>
+<a href="{{ path('panier_show', { 'id': fruit.panier.id }) }}">retour au panier {{ fruit.panier.id }}</a>
 {% endblock %}

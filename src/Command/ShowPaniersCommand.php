@@ -43,7 +43,7 @@ class ShowPaniersCommand extends Command
             
             // Map the paniers to an array of strings
             $panierList = array_map(function(Panier $panier) {
-                return sprintf('ID: %d, Nom: %s, Nombre de fruits : %d', $panier->getId(), $panier->getNom(), $panier->getPanier()->count());
+                return sprintf('ID: %d, Nom: %s, Nombre de fruits : %d', $panier->getId(), $panier->getNom(), $panier->getFruits()->count());
             }, $paniers);
             
             // Pass the list of strings to the listing method

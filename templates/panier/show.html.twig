@@ -13,6 +13,9 @@
 	</tbody>
 </table>
 
+{% if panier.fruits.isEmpty() %}
+    <p>Vous n'avez aucun fruit.</p>
+{% else %}
 {% for fruit in panier.fruits %}
     <table class="table">
         <tbody>
@@ -26,7 +29,7 @@
         </tbody>
     </table>
 {% endfor %}
-
+{% endif %}
 
 <a href="{{ path('app_panier') }}">retour à la liste des paniers</a> 
 {% endblock %}
