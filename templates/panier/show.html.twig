@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}Panier numéro {{ panier.id }}{% endblock %}
+
+{% block body %}
+    <h1>Panier numéro {{ panier.id }}</h1>
+
+<table class="table">
+   <tbody>
+      <tr>
+         <th>Nom du panier: </th>
+         <td>{{ panier.nom }}</td>
+      </tr>
+	</tbody>
+</table>
+
+{% for fruit in panier.fruits %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Fruit numéro: </th>
+                <td>{{ fruit.id }}</td>
+                <td><a href="{{ path('fruit_show', 
+					 { 'id': fruit.id }) }}">show</a></td>
+            </tr>
+
+        </tbody>
+    </table>
+{% endfor %}
+
+
+<a href="{{ path('app_panier') }}">retour à la liste des paniers</a> 
+{% endblock %}

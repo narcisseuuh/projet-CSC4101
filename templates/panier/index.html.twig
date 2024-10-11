@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Paniers{% endblock %}
+
+{% block body %}
+    <h1>Paniers</h1>
+
+{% for panier in paniers %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Panier numéro: </th>
+                <td>{{ panier.id }}</td>
+                <td><a href="{{ path('panier_show', 
+                    { 'id': panier.id }) }}">afficher</a></td>
+            </tr>
+        </tbody>
+    </table>
+{% endfor %}
+{% endblock %}

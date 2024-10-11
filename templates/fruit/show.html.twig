@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}Affichage d'un Fruit{% endblock %}
+
+{% block body %}
+    <h1>Spécificités du Fruit</h1>
+
+
+<table class="table">
+    <tbody>
+        <tr>
+                <th>Id</th>
+                <td>{{ fruit.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ fruit.getName }}</td>
+            </tr>
+            <tr>
+                <th>Couleur</th>
+                <td>{{ fruit.getColor }}</td>
+            </tr>
+            <tr>
+                <th>Quantité</th>
+                <td>{{ fruit.getQuantite }}</td>
+            </tr>
+            <tr>
+                <th>Panier</th>
+                <td>{{ fruit.panier.getName }}</td>
+            </tr>
+
+
+    </tbody>
+</table>
+
+<a href="{{ path('app_panier', { 'id': fruit.panier.id }) }}">retour au panier {{ fruit.panier.id }}</a>
+{% endblock %}
