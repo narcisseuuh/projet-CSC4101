@@ -63,12 +63,26 @@ class AppFixtures extends Fixture
 
         public function load(ObjectManager $manager)
         {
-  
+                foreach ($this->membersGenerator() as [$email, $plainPassword,$role]) {
+                        $user = new Member();
+                        $password = $this->hasher->hashPassword($user, $plainPassword);
+                        $user->setEmail($email);
+                        $user->setPassword($password);
+                        $roles = array();
+                        $roles[] = $role;
+                        $user->setRoles($roles);
+                        $manager->persist($user);
+                }
+                $MemberRepo = $manager->getRepository(Member::class);
+                $user1 = $MemberRepo->findOneBy(['email' => 'augustin@localhost']);
+                $user2 = $MemberRepo->findOneBy(['email' => 'chabane@localhost']);
+                $user3 = $MemberRepo->findOneBy(['email'=> 'thomas@localhost']);
+
                 $cuisine = new Cuisine();
                 $cuisine->setNom("Cuisine de Narcisse");
                 $panier1 = new Panier();
                 $panier1->setNom("Panier super cool");
-
+                $panier1->setCreator($user1);
 
                 foreach (self::fruitsDataGenerator1() as [$nom, $couleur, $quantite] ) {
                         $fruit = new Fruit();
@@ -84,6 +98,7 @@ class AppFixtures extends Fixture
                 $cuisine_bis->setNom("Cuisine de Lowen & Voodoux");
                 $panier2 = new Panier();
                 $panier2->setNom("Panier méga cool");
+                $panier2->setCreator($user2);
 
                 foreach (self::fruitsDataGenerator2() as [$name, $color, $quantite]) {
                     $fruit = new Fruit();
@@ -95,25 +110,9 @@ class AppFixtures extends Fixture
                     $panier2 = $panier2->addFruit($fruit);
                 }
 
-                foreach ($this->membersGenerator() as [$email, $plainPassword,$role]) {
-                        $user = new Member();
-                        $password = $this->hasher->hashPassword($user, $plainPassword);
-                        $user->setEmail($email);
-                        $user->setPassword($password);
-                        $roles = array();
-                        $roles[] = $role;
-                        $user->setRoles($roles);
-                        $manager->persist($user);
-                }
-
                 $manager->persist($cuisine);
                 $manager->persist($cuisine_bis);
                 $manager->flush();
-
-                $MemberRepo = $manager->getRepository(Member::class);
-                $user1 = $MemberRepo->findOneBy(['email' => 'augustin@localhost']);
-                $user2 = $MemberRepo->findOneBy(['email' => 'chabane@localhost']);
-                $user3 = $MemberRepo->findOneBy(['email'=> 'thomas@localhost']);
 
                 $panier1->setCreator($user1);
                 $panier2->setCreator($user2);

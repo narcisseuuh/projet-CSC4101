@@ -22,7 +22,7 @@ class Fruit
     /**
      * @var ?Panier
      */
-    #[ORM\ManyToOne(targetEntity: "App\Entity\Panier")]
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Cuisine", inversedBy: "fruits")]
     #[ORM\JoinColumn(nullable: false)]
     private $cuisine;
 
@@ -38,7 +38,7 @@ class Fruit
     /**
      * @var Collection<int, Panier>
      */
-    #[ORM\ManyToMany(targetEntity: Panier::class, mappedBy: 'fruits')]
+    #[ORM\ManyToMany(targetEntity: Panier::class, mappedBy: 'fruits', cascade: ['persist'])]
     private Collection $paniers;
 
     #[Vich\UploadableField(mapping: 'fruits', fileNameProperty: 'imageName', size: 'imageSize')]
@@ -80,7 +80,7 @@ class Fruit
         return $this->cuisine;
     }
 
-    public function setCuisine(?Panier $cuisine): self
+    public function setCuisine(?Cuisine $cuisine): self
     {
         $this->cuisine = $cuisine;
 

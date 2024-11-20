@@ -41,17 +41,17 @@ class MemberFixtures extends Fixture
     {
         yield [
             'augustin@localhost',
-            'augustin',
+            'testtest',
             'ROLE_ADMIN'
         ];
         yield [
             'chabane@localhost',
-            'chabane',
+            'adminadmin',
             'ROLE_member'
         ];
         yield [
             'thomas@localhost',
-            'thomas',
+            'pwnpwn',
             'ROLE_member'
         ];
     }

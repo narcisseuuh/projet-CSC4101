@@ -21,7 +21,7 @@ class Panier
     #[ORM\Column(type: "string", length: 255)]
     private ?string $nom = null;
 
-    #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: "paniers")]
+    #[ORM\ManyToOne(targetEntity: Member::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?Member $creator = null;
 
