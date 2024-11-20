@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use App\Entity\Panier;
 
 use App\Repository\FruitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,9 +19,12 @@ class Fruit
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cuisine', cascade: ['persist'])]
+    /**
+     * @var ?Panier
+     */
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Panier")]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Panier $cuisine = null;
+    private $cuisine;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -71,12 +75,12 @@ class Fruit
         return $this;
     }
 
-    public function getCuisine(): ?Cuisine
+    public function getCuisine(): ?Panier
     {
         return $this->cuisine;
     }
 
-    public function setCuisine(?Cuisine $cuisine): static
+    public function setCuisine(?Panier $cuisine): self
     {
         $this->cuisine = $cuisine;
 
