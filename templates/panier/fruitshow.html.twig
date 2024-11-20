@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Afficher les Fruits du Panier{% endblock %}
+
+{% block body %}
+    <h1>Spécifications du Fruit</h1>
+
+
+<table class="table">
+    <tbody>
+        <tr>
+                <th>Id</th>
+                <td>{{ fruit.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom du Fruit</th>
+                <td>{{ fruit.getNom }}</td>
+            </tr>
+            <tr>
+                <th>Couleur</th>
+                <td>{{fruit.getCouleur}}</td>
+            </tr>
+    </tbody>
+</table>
+
+<a href="{{ path('app_panier_index') }}">retour au panier</a>
+{% endblock %} {# body #} 

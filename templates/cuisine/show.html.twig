@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}Cuisine numéro {{ cuisine.id }}{% endblock %}
+
+{% block body %}
+    <h1>Cuisine numéro {{ cuisine.id }}</h1>
+
+<table class="table">
+   <tbody>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Link</th>
+        </tr>
+        </thread>
+        {% for fruit in cuisine.getFruits %}
+        <tr>
+            <td>{{ fruit.id }}</td>
+            <td>{{ fruit.nom }}</td>
+            <td><a href="{{ path('app_fruit_show', {'id': fruit.id}) }}">Afficher</a></td>
+        </tr>
+        {% endfor %}
+	</tbody>
+</table>
+
+<a href="{{ path('app_fruit_new', {'id': fruit.id}) }}" class="btn btn-primary">Rajouter un fruit</a>
+<a href="{{ path('app_cuisine') }}">retour à la liste des cuisines</a> 
+{% endblock %}

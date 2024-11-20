@@ -1,35 +1,55 @@
 {% extends 'base.html.twig' %}
-{% block title %}Panier numéro {{ panier.id }}{% endblock %}
+
+{% block title %}Paniers{% endblock %}
 
 {% block body %}
-    <h1>Panier numéro {{ panier.id }}</h1>
+    <h1>Paniers</h1>
 
-<table class="table">
-   <tbody>
-      <tr>
-         <th>Nom du panier: </th>
-         <td>{{ panier.nom }}</td>
-      </tr>
-	</tbody>
-</table>
-
-{% if panier.fruits.isEmpty() %}
-    <p>Vous n'avez aucun fruit.</p>
-{% else %}
-{% for fruit in panier.fruits %}
     <table class="table">
         <tbody>
             <tr>
-                <th>Fruit numéro: </th>
-                <td>{{ fruit.id }}</td>
-                <td><a href="{{ path('fruit_show', 
-					 { 'id': fruit.id }) }}">show</a></td>
+                <th>Id</th>
+                <td>{{ panier.id }}</td>
             </tr>
-
+            <tr>
+                <th>Nom</th>
+                <td>{{ panier.nom }}</td>
+            </tr>
+            <tr>
+                <th>Publié</th>
+                <td>{{ panier.published ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Créateur</th>
+                <td>{{ panier.Creator}}</td>
+            </tr>
+            
+            <tr>
+                <th>Fruits</th>
+                <td>
+                    <ul>
+                    {% for fruit in panier.fruits %}
+                    <li>
+                        <a href="{{ path( 'app_panier_fruit_show',
+                       {
+                         'panier_id': panier.id,
+                         'fruit_id' : fruit.id
+                       }
+                     ) }}">{{ fruit }}</a>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+                        
         </tbody>
     </table>
-{% endfor %}
-{% endif %}
 
-<a href="{{ path('app_panier') }}">retour à la liste des paniers</a> 
+    <a class="btn btn-primary" href="{{ path('app_panier_index')}}">Retour à la liste des Paniers</a>
+
+    {% if is_granted('ROLE_USER') %}
+    <a class="btn btn-secondary" href="{{ path('app_panier_edit', {'id': panier.id}) }}">Modifier le Panier</a>
+    {% endif %}
+    
+    {{ include('panier/_delete_form.html.twig') }}
 {% endblock %}

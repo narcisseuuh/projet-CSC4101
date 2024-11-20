@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membre{% endblock %}
+
+{% block body %}
+    <h1>Membre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ member.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ member.email }}</td>
+            </tr>
+            <tr>
+                <th>Cuisine</th>
+                <td><a href="{{ path('cuisine_show', {'id' : member.cuisine.id}) }}"> Ma Cuisine</a></td>
+            </tr>
+            <tr>
+                <th>Paniers</th>
+                {% for panier in member.panier %}
+                <td><a href="{{ path('app_panier_show', {'id' : panier.id}) }}"> {{panier.nom}} </a></td>
+                {% endfor %}
+                <td><a href="{{ path('app_panier_new', {'id' : member.id}) }}">Nouveau Panier</a></td>
+            </tr>
+               
+
+
+                        
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_member') }}" class="btn btn-primary">retour à la liste</a>
+
+{% endblock %}

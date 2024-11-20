@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le fruit{% endblock %}
+
+{% block body %}
+    <h1>Modifier le fruit</h1>
+
+    {{ include('fruit/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a class="btn btn-secondary" href="{{ path('app_fruit_index') }}">retour à la liste des fruits</a>
+
+    {{ include('fruit/_delete_form.html.twig') }}
+{% endblock %}

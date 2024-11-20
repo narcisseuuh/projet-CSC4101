@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Cuisines{% endblock %}
+
+{% block body %}
+    <h1>Cuisines</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <th>Owner</th>
+                <th>Link</th>
+            </tr>
+            </thead>
+        {% for cuisine in cuisines %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Cuisine numéro: </th>
+                    <td>{{ cuisine.id }}</td>
+                    <td><a href="{{ path('cuisine_show', 
+                        { 'id': cuisine.id }) }}">afficher</a></td>
+                </tr>
+            </tbody>
+        </table>
+        {% endfor %}
+    </tbody>
+{% endblock %}

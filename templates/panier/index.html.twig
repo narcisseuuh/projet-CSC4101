@@ -3,18 +3,65 @@
 {% block title %}Liste des Paniers{% endblock %}
 
 {% block body %}
-    <h1>Paniers</h1>
+    <h1>Liste des Paniers</h1>
 
-{% for panier in paniers %}
     <table class="table">
-        <tbody>
+        <thead>
             <tr>
-                <th>Panier numéro: </th>
-                <td>{{ panier.id }}</td>
-                <td><a href="{{ path('panier_show', 
-                    { 'id': panier.id }) }}">afficher</a></td>
+                <th>Id</th>
+                <th>Nom</th>
             </tr>
+        </thead>
+        <tbody>
+        {% for panier in paniers %}
+            <tr>
+                <td>{{ panier.id }}</td>
+                <td>{{ panier.nom }}</td>
+                <td>{{ panier.published ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_panier_show', {'id': panier.id}) }}">Afficher</a>
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_panier_edit', {'id': panier.id}) }}">Modifier</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de paniers trouvés..</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
-{% endfor %}
+
+    {% if personnal is not empty %}
+    <h1>Paniers Privés</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for panier in paniers %}
+            <tr>
+                <td>{{ panier.id }}</td>
+                <td>{{ panier.nom }}</td>
+                <td>{{ panier.published ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_panier_show', {'id': panier.id}) }}">Afficher</a>
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_panier_edit', {'id': panier.id}) }}">Modifier</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de paniers trouvés..</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 {% endblock %}

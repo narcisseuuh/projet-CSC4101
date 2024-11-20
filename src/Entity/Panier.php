@@ -7,16 +7,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity(repositoryClass=PanierRepository::class)
+ */
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
 class Panier
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: "integer")]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $nom = null;
+
+    #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: "paniers")]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Member $creator = null;
 
     /**
      * @var Collection<int, Fruit>
@@ -42,6 +49,19 @@ class Panier
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getCreator(): ?Member
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?Member $creator): self
+    {
+        $this->creator = $creator;
+
         return $this;
     }
 
@@ -53,24 +73,25 @@ class Panier
         return $this->fruits;
     }
 
-    public function addFruit(Fruit $fruit): static 
+    public function addFruit(Fruit $fruit): self
     {
         if (!$this->fruits->contains($fruit)) {
-            $this->fruits->add($fruit);
-            $fruit->setPanier($this);
+            $this->fruits[] = $fruit;
+            $fruit->addPanier($this);
         }
 
         return $this;
     }
 
-    public function removeFruit(Fruit $fruit): static
+    public function removeFruit(Fruit $fruit): self
     {
-        if ($this->fruits->contains($fruit)) {
-            $this->fruits->removeElement($fruit);
-            if ($fruit->getPanier() === $this) {
-                $fruit->setPanier(null);
-            }  
+        if ($this->fruits->removeElement($fruit)) {
+            // set the owning side to null (unless already changed)
+            if ($fruit->getPaniers()->contains($this)) {
+                $fruit->removePanier($this);
+            }
         }
+
         return $this;
     }
 }

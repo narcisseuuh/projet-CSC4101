@@ -1,0 +1,30 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+    anonymousaccount:
+      items:
+        login:
+          label: 'Login'
+          route: 'app_login'
+    account:
+      items:
+        cuisine:
+          label: 'Ma Cuisine'
+          route: 'app_cuisine'
+        logout:
+          label : 'Logout'
+          route: 'app_logout'
+          roles: [ 'ROLE_USER' ]
+    admin:
+      items:
+        cuisine:
+          label: 'Cuisine'
+          route: 'app_online_cuisine'
+        members:
+          label: 'Members'
+          route: 'app_member'
+        logout:
+          label : 'Logout'
+          route: 'app_logout'
+          roles: [ 'ROLE_USER' ]
